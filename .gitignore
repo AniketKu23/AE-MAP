@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Data and models
+ae-map-backend/data/
+ae-map-backend/models/

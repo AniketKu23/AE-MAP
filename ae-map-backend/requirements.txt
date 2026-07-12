@@ -1,0 +1,12 @@
+torch
+pandas
+numpy
+scikit-learn
+fastapi
+uvicorn
+gseapy
+lifelines
+shap
+umap-learn
+matplotlib
+pydantic
