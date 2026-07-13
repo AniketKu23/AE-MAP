@@ -38,7 +38,7 @@ export const CaseStudy = () => {
 
   React.useEffect(() => {
     // Fetch pathways for Cluster 1 (DNA Repair Deficit) as the spotlight
-    fetch('http://localhost:8000/api/pathways/1')
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/pathways/1`)
       .then(res => res.ok ? res.json() : null)
       .then(data => setPathways(data))
       .catch(console.error);
@@ -130,7 +130,7 @@ export const Metrics = () => {
   const [metrics, setMetrics] = React.useState({ reconstruction_accuracy: 94 });
 
   React.useEffect(() => {
-    fetch('http://localhost:8000/api/metrics')
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/metrics`)
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         if(data) setMetrics(data);

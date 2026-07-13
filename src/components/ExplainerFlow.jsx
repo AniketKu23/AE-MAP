@@ -7,19 +7,19 @@ const ExplainerFlow = ({ activeCohort = 'BRCA', selectedCluster = '0' }) => {
   
   useEffect(() => {
     // Fetch Pathways
-    fetch(`http://localhost:8000/api/pathways/${selectedCluster}?cohort=${activeCohort}`)
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/pathways/${selectedCluster}?cohort=${activeCohort}`)
       .then(res => res.ok ? res.json() : null)
       .then(data => setPathways(data))
       .catch(() => setPathways(null));
       
     // Fetch Survival
-    fetch(`http://localhost:8000/api/survival/${selectedCluster}?cohort=${activeCohort}`)
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/survival/${selectedCluster}?cohort=${activeCohort}`)
       .then(res => res.ok ? res.json() : null)
       .then(data => setSurvival(data))
       .catch(() => setSurvival(null));
       
     // Fetch Gene Importance
-    fetch(`http://localhost:8000/api/gene-importance/${selectedCluster}?cohort=${activeCohort}`)
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/gene-importance/${selectedCluster}?cohort=${activeCohort}`)
       .then(res => res.ok ? res.json() : null)
       .then(data => setGeneImportance(data))
       .catch(() => setGeneImportance(null));

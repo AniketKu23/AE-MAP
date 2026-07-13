@@ -95,7 +95,7 @@ export const InteractiveDemo = () => {
   React.useEffect(() => {
     setLoading(true);
     setIsClustered(false);
-    fetch(`http://localhost:8000/api/clusters?cohort=${activeCohort}`)
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/clusters?cohort=${activeCohort}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch clusters');
         return res.json();
