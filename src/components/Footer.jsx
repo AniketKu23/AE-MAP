@@ -14,7 +14,7 @@ const Footer = () => {
           </div>
           
           <div className="flex gap-6">
-            <a href="#" className="flex items-center gap-2 hover:text-white transition-colors">
+            <a href="https://github.com/AniketKu23/AE-MAP/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white transition-colors">
               <Code className="w-5 h-5" />
               <span>GitHub</span>
             </a>
