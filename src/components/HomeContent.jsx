@@ -163,6 +163,11 @@ export const InteractiveDemo = () => {
       });
   }, [activeCohort]);
 
+  // Tailwind safelist for dynamic classes injected from API
+  // border-blue-500 text-blue-400 border-purple-500 text-purple-400 border-rose-500 text-rose-400
+  // border-emerald-500 text-emerald-400 border-amber-500 text-amber-400 border-indigo-500 text-indigo-400
+  // border-orange-500 text-orange-400 border-red-500 text-red-400 border-slate-500 text-slate-400
+
   return (
     <React.Fragment>
     <section id="live-demo" className="py-24 bg-slate-900 text-white">

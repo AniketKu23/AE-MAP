@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 export const DataCredibility = () => (
-  <section className="py-8 bg-slate-100 border-y border-slate-700/50">
+  <section className="py-8 bg-slate-900/50 border-y border-slate-700/50">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <p className="text-slate-300 text-sm font-medium">
         Trained on real patient data from The Cancer Genome Atlas (TCGA) and the CPTAC proteomics program — the same public datasets used in published cancer research worldwide. Not synthetic or invented data.
@@ -71,6 +71,7 @@ export const AboutAndRoadmap = () => (
             The volume of multi-omics data in the world is exploding, but our ability to understand it as a cohesive whole has lagged. 
             AE-MAP was built to bridge this gap, translating massive, disconnected datasets into actionable biological insights. 
             By building a tool that handles the messy reality of biological data, we hope to accelerate the path to precision medicine.
+          </p>
           <p className="text-slate-300 leading-relaxed mt-4">
             <strong>Created by:</strong> Aniket Kumar <br />
             <strong>GitHub:</strong> <a href="https://github.com/aniketku23" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">github.com/aniketku23</a>
@@ -102,14 +103,14 @@ export const TechStack = () => (
   <section className="py-12 bg-slate-900 border-t border-slate-700/50">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <p className="text-xs uppercase tracking-widest text-slate-400 mb-6 font-semibold">Powered By Industry Standard Tools</p>
-      <div className="flex flex-wrap justify-center gap-8 opacity-60 grayscale hover:grayscale-0 transition-all">
+      <div className="flex flex-wrap justify-center gap-8 opacity-60 hover:opacity-100 transition-all">
         {/* Placeholder for tech logos, using text for clean minimal look */}
-        <span className="font-bold text-slate-700">Python</span>
-        <span className="font-bold text-slate-700">PyTorch</span>
-        <span className="font-bold text-slate-700">Scikit-Learn</span>
-        <span className="font-bold text-slate-700">Plotly</span>
-        <span className="font-bold text-slate-700">React</span>
-        <span className="font-bold text-slate-700">FastAPI</span>
+        <span className="font-bold text-slate-300 text-lg tracking-wide">Python</span>
+        <span className="font-bold text-slate-300 text-lg tracking-wide">PyTorch</span>
+        <span className="font-bold text-slate-300 text-lg tracking-wide">Scikit-Learn</span>
+        <span className="font-bold text-slate-300 text-lg tracking-wide">Plotly</span>
+        <span className="font-bold text-slate-300 text-lg tracking-wide">React</span>
+        <span className="font-bold text-slate-300 text-lg tracking-wide">FastAPI</span>
       </div>
     </div>
   </section>
