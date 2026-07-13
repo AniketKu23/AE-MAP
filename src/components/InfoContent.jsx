@@ -71,6 +71,9 @@ export const AboutAndRoadmap = () => (
             The volume of multi-omics data in the world is exploding, but our ability to understand it as a cohesive whole has lagged. 
             AE-MAP was built to bridge this gap, translating massive, disconnected datasets into actionable biological insights. 
             By building a tool that handles the messy reality of biological data, we hope to accelerate the path to precision medicine.
+          <p className="text-slate-300 leading-relaxed mt-4">
+            <strong>Created by:</strong> Aniket Kumar <br />
+            <strong>GitHub:</strong> <a href="https://github.com/aniketku23" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">github.com/aniketku23</a>
           </p>
         </div>
         <div>

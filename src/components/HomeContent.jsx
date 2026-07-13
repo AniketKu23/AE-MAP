@@ -1,5 +1,5 @@
 import React from 'react';
-import Plot from 'react-plotly.js';
+import ExplainerFlow from './ExplainerFlow';
 
 export const WhyItMatters = () => (
   <section id="how-it-works" className="py-20 bg-slate-800">
@@ -89,29 +89,71 @@ export const InteractiveDemo = () => {
   const [error, setError] = React.useState(null);
   const [hoveredCluster, setHoveredCluster] = React.useState(null);
 
+  // New animation state
+  const [isClustered, setIsClustered] = React.useState(false);
+
   React.useEffect(() => {
     setLoading(true);
+    setIsClustered(false);
     fetch(`http://localhost:8000/api/clusters?cohort=${activeCohort}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch clusters');
         return res.json();
       })
       .then(data => {
-        // Map the backend JSON to Plotly traces
-        const fallbackColors = ['#3b82f6', '#8b5cf6', '#14b8a6'];
-        const traces = data.map((cluster, i) => ({
-          x: cluster.x,
-          y: cluster.y,
-          type: 'scatter',
-          mode: 'markers',
-          marker: { color: cluster.meta.markerColor || fallbackColors[i % fallbackColors.length], size: 8, opacity: 0.8 },
-          name: cluster.name,
-          text: cluster.samples,
-          hoverinfo: 'name+text',
-          patientCount: cluster.samples.length,
-          meta: cluster.meta // Embedded from backend
-        }));
-        setPlotData(traces);
+        const fallbackColors = ['#3b82f6', '#8b5cf6', '#14b8a6', '#f43f5e', '#f59e0b'];
+        
+        // Find global min/max for scaling
+        let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+        data.forEach(cluster => {
+          cluster.x.forEach(x => { if (x < minX) minX = x; if (x > maxX) maxX = x; });
+          cluster.y.forEach(y => { if (y < minY) minY = y; if (y > maxY) maxY = y; });
+        });
+
+        const padding = 0.1;
+        const xRange = maxX - minX;
+        const yRange = maxY - minY;
+        minX -= xRange * padding;
+        maxX += xRange * padding;
+        minY -= yRange * padding;
+        maxY += yRange * padding;
+
+        const processedClusters = data.map((cluster, i) => {
+          const color = cluster.meta.markerColor || fallbackColors[i % fallbackColors.length];
+          // Calculate centroid
+          let sumX = 0, sumY = 0;
+          
+          const points = cluster.x.map((x, j) => {
+            const y = cluster.y[j];
+            sumX += x;
+            sumY += y;
+            
+            return {
+              id: `${i}-${j}`,
+              clusterIdx: i,
+              // Target coordinates in percentages
+              targetX: ((x - minX) / (maxX - minX)) * 100,
+              targetY: ((maxY - y) / (maxY - minY)) * 100, // Invert Y
+              color: color,
+              // Initial random scattered positions (away from edges)
+              startX: Math.random() * 80 + 10,
+              startY: Math.random() * 80 + 10,
+              delay: Math.random() * 0.6 // Stagger up to 600ms
+            };
+          });
+          
+          return {
+            ...cluster,
+            color,
+            points,
+            centroidX: ((sumX / points.length - minX) / (maxX - minX)) * 100,
+            centroidY: ((maxY - (sumY / points.length)) / (maxY - minY)) * 100,
+            patientCount: points.length,
+            meta: cluster.meta
+          };
+        });
+        
+        setPlotData(processedClusters);
         setLoading(false);
       })
       .catch(err => {
@@ -121,18 +163,8 @@ export const InteractiveDemo = () => {
       });
   }, [activeCohort]);
 
-  const displayData = plotData.map((trace, i) => ({
-    ...trace,
-    marker: {
-      ...trace.marker,
-      opacity: hoveredCluster === null || hoveredCluster === i ? 0.8 : 0.2
-    }
-  }));
-
-  // Dynamically generated from plotData.meta instead of hardcoded
-  // const cardContent = [ ... ];
-
   return (
+    <React.Fragment>
     <section id="live-demo" className="py-24 bg-slate-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 max-w-4xl mx-auto">
@@ -167,36 +199,80 @@ export const InteractiveDemo = () => {
           </p>
         </div>
         
-        <div className="bg-slate-800 p-2 rounded-2xl shadow-2xl overflow-hidden min-h-[500px] flex items-center justify-center mb-12">
-          {loading ? (
-            <div className="text-slate-400 animate-pulse font-medium">Loading live cluster data from AE-MAP backend...</div>
-          ) : error ? (
-            <div className="text-red-500">Error loading data: {error} (Is the backend running?)</div>
-          ) : (
-             <Plot
-              data={displayData}
-              layout={{
-                autosize: true,
-                margin: { l: 20, r: 20, t: 20, b: 20 },
-                showlegend: true,
-                legend: { orientation: 'h', y: -0.1 },
-                xaxis: { showgrid: false, zeroline: false, showticklabels: false },
-                yaxis: { showgrid: false, zeroline: false, showticklabels: false },
-                paper_bgcolor: 'rgba(0,0,0,0)',
-                plot_bgcolor: 'rgba(0,0,0,0)',
-                hovermode: 'closest'
-              }}
-              onHover={(e) => {
-                if (e.points && e.points.length > 0) {
-                  setHoveredCluster(e.points[0].curveNumber);
-                }
-              }}
-              onUnhover={() => setHoveredCluster(null)}
-              useResizeHandler={true}
-              style={{ width: '100%', height: '500px' }}
-              config={{ displayModeBar: false }}
-            />
-          )}
+        <div className="bg-slate-800 p-2 rounded-2xl shadow-2xl overflow-hidden mb-12">
+          <div className="relative w-full h-[500px] overflow-hidden bg-slate-900 border border-slate-700/50 rounded-xl">
+            {loading ? (
+              <div className="absolute inset-0 flex items-center justify-center text-slate-400 animate-pulse font-medium">
+                Loading live cluster data from AE-MAP backend...
+              </div>
+            ) : error ? (
+              <div className="absolute inset-0 flex items-center justify-center text-red-500">
+                Error loading data: {error} (Is the backend running?)
+              </div>
+            ) : (
+              <>
+                {plotData.map((cluster, cIdx) => (
+                  <React.Fragment key={cIdx}>
+                    {cluster.points.map((pt) => {
+                      const isHovered = hoveredCluster === null || hoveredCluster === cIdx;
+                      return (
+                        <div
+                          key={pt.id}
+                          className="absolute rounded-full transition-all duration-[1200ms] ease-out"
+                          style={{
+                            width: '8px',
+                            height: '8px',
+                            left: `${isClustered ? pt.targetX : pt.startX}%`,
+                            top: `${isClustered ? pt.targetY : pt.startY}%`,
+                            backgroundColor: isClustered ? pt.color : '#64748b', // slate-500
+                            opacity: isClustered ? (isHovered ? 0.8 : 0.2) : 0.6,
+                            transform: 'translate(-50%, -50%)',
+                            transitionDelay: isClustered ? `${pt.delay}s` : '0s'
+                          }}
+                        />
+                      );
+                    })}
+                    {/* Label */}
+                    <div 
+                      className="absolute transition-opacity duration-1000 px-3 py-1.5 bg-slate-900/90 backdrop-blur border border-slate-700/80 rounded-lg text-sm font-semibold pointer-events-none shadow-xl z-10"
+                      style={{
+                        left: `${cluster.centroidX}%`,
+                        top: `${cluster.centroidY}%`,
+                        transform: 'translate(-50%, -50%)',
+                        color: cluster.color,
+                        opacity: isClustered ? (hoveredCluster === null || hoveredCluster === cIdx ? 1 : 0.1) : 0,
+                        transitionDelay: isClustered ? '1.2s' : '0s'
+                      }}
+                    >
+                      {cluster.name}
+                    </div>
+                  </React.Fragment>
+                ))}
+                
+                {/* Controls overlay */}
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4 z-20">
+                  {!isClustered ? (
+                    <button 
+                      onClick={() => setIsClustered(true)}
+                      className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg hover:shadow-indigo-500/25 transition-all transform hover:-translate-y-0.5"
+                    >
+                      Run AI Analysis
+                    </button>
+                  ) : (
+                    <button 
+                      onClick={() => setIsClustered(false)}
+                      className="px-5 py-2.5 bg-slate-800/80 backdrop-blur hover:bg-slate-700 text-slate-300 font-medium rounded-lg shadow-lg border border-slate-600 transition-all text-sm flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                      Reset
+                    </button>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
         {!loading && !error && plotData.length > 0 && (
@@ -207,7 +283,7 @@ export const InteractiveDemo = () => {
               return (
                 <div 
                   key={idx} 
-                  className={`bg-slate-800 rounded-xl p-6 border-t-4 transition-all duration-300 ${card.colorClass} ${hoveredCluster !== null && hoveredCluster !== idx ? 'opacity-30' : 'opacity-100 shadow-lg scale-[1.02]'}`}
+                  className={`bg-slate-800 rounded-xl p-6 border-t-4 transition-all duration-300 cursor-pointer ${card.colorClass} ${hoveredCluster !== null && hoveredCluster !== idx ? 'opacity-30' : 'opacity-100 shadow-lg hover:scale-[1.02]'}`}
                   onMouseEnter={() => setHoveredCluster(idx)}
                   onMouseLeave={() => setHoveredCluster(null)}
                 >
@@ -225,13 +301,9 @@ export const InteractiveDemo = () => {
             })}
           </div>
         )}
-
-        <div className="text-center max-w-3xl mx-auto">
-          <p className="text-lg text-slate-200">
-            In this dataset, these three groups also showed different real survival outcomes — not just different math. <a href="#outcomes" className="text-indigo-400 hover:text-indigo-300 underline underline-offset-4 font-bold">See the outcome data ↓</a>
-          </p>
-        </div>
       </div>
     </section>
+    <ExplainerFlow activeCohort={activeCohort} selectedCluster={hoveredCluster !== null ? hoveredCluster.toString() : '0'} />
+    </React.Fragment>
   );
 };
