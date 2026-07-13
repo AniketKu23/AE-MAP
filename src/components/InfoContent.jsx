@@ -74,7 +74,7 @@ export const AboutAndRoadmap = () => (
           </p>
           <p className="text-slate-300 leading-relaxed mt-4">
             <strong>Created by:</strong> Aniket Kumar <br />
-            <strong>GitHub:</strong> <a href="https://github.com/aniketku23" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">github.com/aniketku23</a>
+            <strong>GitHub:</strong> <a href="https://github.com/AniketKu23/AE-MAP/" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">github.com/AniketKu23/AE-MAP</a>
           </p>
         </div>
         <div>
