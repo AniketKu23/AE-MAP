@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { UploadCloud, File, CheckCircle, AlertCircle, Loader2, Download } from 'lucide-react';
 
 const UploadAnalysis = () => {
@@ -11,6 +11,42 @@ const UploadAnalysis = () => {
   const [status, setStatus] = useState('idle'); // idle, uploading, analyzing, complete, error
   const [errorMsg, setErrorMsg] = useState('');
   const [result, setResult] = useState(null);
+  
+  // Background data for scatter plot
+  const [bgClusters, setBgClusters] = useState([]);
+  const [plotBounds, setPlotBounds] = useState({ minX: 0, maxX: 0, minY: 0, maxY: 0 });
+
+  useEffect(() => {
+    // Fetch the BRCA clusters in the background so we can plot the patient on them later
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/clusters?cohort=BRCA`)
+      .then(res => res.ok ? res.json() : [])
+      .then(data => {
+        setBgClusters(data);
+        if (data.length > 0) {
+          let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+          data.forEach(c => {
+            const cMinX = Math.min(...c.x);
+            const cMaxX = Math.max(...c.x);
+            const cMinY = Math.min(...c.y);
+            const cMaxY = Math.max(...c.y);
+            if(cMinX < minX) minX = cMinX;
+            if(cMaxX > maxX) maxX = cMaxX;
+            if(cMinY < minY) minY = cMinY;
+            if(cMaxY > maxY) maxY = cMaxY;
+          });
+          // Add a 10% margin
+          const xMargin = (maxX - minX) * 0.1;
+          const yMargin = (maxY - minY) * 0.1;
+          setPlotBounds({
+            minX: minX - xMargin,
+            maxX: maxX + xMargin,
+            minY: minY - yMargin,
+            maxY: maxY + yMargin
+          });
+        }
+      })
+      .catch(console.error);
+  }, []);
 
   const handleFileChange = (type, e) => {
     if (e.target.files && e.target.files[0]) {
@@ -152,32 +188,96 @@ const UploadAnalysis = () => {
               </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className={`bg-slate-800 rounded-xl p-6 border-t-4 shadow-xl flex flex-col h-full ${result.meta.colorClass}`}>
-                 <h3 className={`text-xl font-bold mb-4 ${result.meta.titleColor}`}>Predicted Group: {result.meta.name}</h3>
-                 <p className="text-sm text-slate-300 flex-grow">
-                   <strong className="text-white">What it means:</strong> {result.meta.means}
-                 </p>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              
+              <div className="lg:col-span-1 flex flex-col gap-6">
+                <div className={`bg-slate-800 rounded-xl p-6 border-t-4 shadow-xl flex flex-col ${result.meta.colorClass}`}>
+                   <h3 className={`text-xl font-bold mb-4 ${result.meta.titleColor}`}>Predicted Group: {result.meta.name}</h3>
+                   <p className="text-sm text-slate-300 flex-grow">
+                     <strong className="text-white">What it means:</strong> {result.meta.means}
+                   </p>
+                </div>
+                <div className="bg-slate-800 rounded-xl p-6 border-t-4 border-slate-600 shadow-xl flex flex-col">
+                   <h3 className="text-xl font-bold mb-4 text-slate-100">Biological Drivers</h3>
+                   <p className="text-sm text-slate-300 flex-grow">
+                     <strong className="text-white">What's driving it:</strong> {result.meta.driving}
+                   </p>
+                </div>
+                <div className="bg-slate-800 rounded-xl p-6 border-t-4 border-slate-600 shadow-xl flex flex-col">
+                   <h3 className="text-xl font-bold mb-4 text-slate-100">Clinical Impact</h3>
+                   <p className="text-sm text-slate-300 flex-grow">
+                     <strong className="text-white">How this helps:</strong> {result.meta.helps}
+                   </p>
+                </div>
               </div>
-              <div className="bg-slate-800 rounded-xl p-6 border-t-4 border-slate-600 shadow-xl flex flex-col h-full">
-                 <h3 className="text-xl font-bold mb-4 text-slate-100">Biological Drivers</h3>
-                 <p className="text-sm text-slate-300 flex-grow">
-                   <strong className="text-white">What's driving it:</strong> {result.meta.driving}
-                 </p>
+
+              {/* Scatter Plot */}
+              <div className="lg:col-span-2 bg-slate-800 rounded-xl p-6 shadow-xl flex flex-col relative border border-slate-700/50">
+                <h3 className="text-xl font-bold mb-4 text-slate-100">Patient Latent Map</h3>
+                <p className="text-sm text-slate-400 mb-4">
+                  Your patient has been projected into the AE-MAP multi-omic latent space. They are plotted against the background TCGA patient cohort.
+                </p>
+                
+                <div className="relative w-full h-[400px] bg-slate-900 border border-slate-700/50 rounded-xl overflow-hidden mt-auto">
+                  {bgClusters.length === 0 ? (
+                    <div className="absolute inset-0 flex items-center justify-center text-slate-500">
+                      Loading background map...
+                    </div>
+                  ) : (
+                    <>
+                      {/* Background points */}
+                      {bgClusters.map((cluster, cIdx) => (
+                        <React.Fragment key={`bg-${cIdx}`}>
+                          {cluster.x.map((px, i) => {
+                            const py = cluster.y[i];
+                            const left = ((px - plotBounds.minX) / (plotBounds.maxX - plotBounds.minX)) * 100;
+                            const top = ((plotBounds.maxY - py) / (plotBounds.maxY - plotBounds.minY)) * 100;
+                            return (
+                              <div
+                                key={i}
+                                className="absolute rounded-full"
+                                style={{
+                                  width: '6px',
+                                  height: '6px',
+                                  left: `${left}%`,
+                                  top: `${top}%`,
+                                  backgroundColor: cluster.meta.markerColor || '#64748b',
+                                  opacity: 0.15,
+                                  transform: 'translate(-50%, -50%)'
+                                }}
+                              />
+                            );
+                          })}
+                        </React.Fragment>
+                      ))}
+
+                      {/* Your patient point */}
+                      {(() => {
+                        const left = ((result.x - plotBounds.minX) / (plotBounds.maxX - plotBounds.minX)) * 100;
+                        const top = ((plotBounds.maxY - result.y) / (plotBounds.maxY - plotBounds.minY)) * 100;
+                        return (
+                          <div
+                            className="absolute rounded-full shadow-[0_0_15px_rgba(255,255,255,0.8)] z-10 animate-pulse border-2 border-white"
+                            style={{
+                              width: '16px',
+                              height: '16px',
+                              left: `${left}%`,
+                              top: `${top}%`,
+                              backgroundColor: result.meta.markerColor || '#fff',
+                              transform: 'translate(-50%, -50%)'
+                            }}
+                          >
+                            <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap shadow-lg font-bold border border-slate-600">
+                              Your Patient
+                            </div>
+                          </div>
+                        );
+                      })()}
+                    </>
+                  )}
+                </div>
               </div>
-              <div className="bg-slate-800 rounded-xl p-6 border-t-4 border-slate-600 shadow-xl flex flex-col h-full">
-                 <h3 className="text-xl font-bold mb-4 text-slate-100">Clinical Impact</h3>
-                 <p className="text-sm text-slate-300 flex-grow">
-                   <strong className="text-white">How this helps:</strong> {result.meta.helps}
-                 </p>
-              </div>
-              <div className="bg-slate-800 rounded-xl p-6 border-t-4 border-slate-600 shadow-xl flex flex-col h-full">
-                 <h3 className="text-xl font-bold mb-4 text-slate-100">Latent Coordinates</h3>
-                 <div className="text-sm text-slate-300 font-mono space-y-2 mt-2">
-                    <p>x: {result.x.toFixed(4)}</p>
-                    <p>y: {result.y.toFixed(4)}</p>
-                 </div>
-              </div>
+
             </div>
           </div>
         )}
