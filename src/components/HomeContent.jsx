@@ -1,5 +1,6 @@
 import React from 'react';
 import ExplainerFlow from './ExplainerFlow';
+import UploadAnalysis from './UploadAnalysis';
 
 export const WhyItMatters = () => (
   <section id="how-it-works" className="py-20 bg-slate-800">
@@ -309,6 +310,7 @@ export const InteractiveDemo = () => {
       </div>
     </section>
     <ExplainerFlow activeCohort={activeCohort} selectedCluster={hoveredCluster !== null ? hoveredCluster.toString() : '0'} />
+    <UploadAnalysis />
     </React.Fragment>
   );
 };

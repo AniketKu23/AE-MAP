@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import { WhyItMatters, Pipeline, Comparison, InteractiveDemo } from './components/HomeContent';
 import { Rigorous, CaseStudy, UseCases, Metrics } from './components/DetailsContent';
-import { DataCredibility, JargonBuster, FAQ, AboutAndRoadmap, TechStack } from './components/InfoContent';
+import { DataCredibility, JargonBuster, AboutAndRoadmap, TechStack } from './components/InfoContent';
 import Footer from './components/Footer';
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
         <Metrics />
         <DataCredibility />
         <JargonBuster />
-        <FAQ />
+
         <AboutAndRoadmap />
         <TechStack />
       </main>

@@ -148,7 +148,7 @@ export const Metrics = () => {
             <p className="text-slate-400 text-sm max-w-xs mx-auto">DNA, RNA, and protein data combined into one continuous mathematical space.</p>
           </div>
           <div className="pt-8 md:pt-0">
-            <div className="text-5xl font-bold text-fuchsia-300 mb-2">{metrics.reconstruction_accuracy}%</div>
+            <div className="text-5xl font-bold text-fuchsia-300 mb-2">{metrics.reconstruction_accuracy <= 1 ? Math.round(metrics.reconstruction_accuracy * 100) : metrics.reconstruction_accuracy}%</div>
             <div className="text-lg font-medium mb-2">Reconstruction Accuracy</div>
             <p className="text-slate-400 text-sm max-w-xs mx-auto">The AI can recreate the original patient data from its compressed summary, proving it learned real patterns, not noise.</p>
           </div>

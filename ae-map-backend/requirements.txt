@@ -10,3 +10,4 @@ shap
 umap-learn
 matplotlib
 pydantic
+python-multipart

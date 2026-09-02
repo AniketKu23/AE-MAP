@@ -47,19 +47,6 @@ export const JargonBuster = () => (
   </section>
 );
 
-export const FAQ = () => (
-  <section className="py-20 bg-slate-900">
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 className="text-3xl font-bold text-white mb-8 text-center">Frequently Asked Questions</h2>
-      <div className="space-y-4">
-        <AccordionItem title="Is this diagnosing real patients?" content="No — it is a research and discovery tool meant to help scientists find new patterns, not a diagnostic medical device for bedside use." />
-        <AccordionItem title="Where does the data come from?" content="All data is from public, de-identified databases like TCGA (The Cancer Genome Atlas), representing real patients who consented to research." />
-        <AccordionItem title="How is this different from just searching a database?" content="Searching retrieves what you already know to look for. AE-MAP finds hidden, complex connections no human queried for or even knew existed." />
-        <AccordionItem title="Does the AI need to be told the right answer first?" content="No. It uses unsupervised learning. We don't tell it who has what subtype; it figures out the natural groupings based entirely on the biology." />
-      </div>
-    </div>
-  </section>
-);
 
 export const AboutAndRoadmap = () => (
   <section id="about" className="py-20 bg-slate-800 border-t border-slate-700/50">
@@ -71,10 +58,6 @@ export const AboutAndRoadmap = () => (
             The volume of multi-omics data in the world is exploding, but our ability to understand it as a cohesive whole has lagged. 
             AE-MAP was built to bridge this gap, translating massive, disconnected datasets into actionable biological insights. 
             By building a tool that handles the messy reality of biological data, we hope to accelerate the path to precision medicine.
-          </p>
-          <p className="text-slate-300 leading-relaxed mt-4">
-            <strong>Created by:</strong> Aniket Kumar <br />
-            <strong>GitHub:</strong> <a href="https://github.com/aniketku23" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">github.com/aniketku23</a>
           </p>
         </div>
         <div>

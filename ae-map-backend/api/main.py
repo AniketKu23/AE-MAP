@@ -1,7 +1,8 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 import json
 import os
+import asyncio
 
 app = FastAPI(title="AE-MAP API")
 
@@ -53,3 +54,49 @@ def get_gene_importance(cluster_id: str, cohort: str = "BRCA"):
     if cluster_id not in data:
         raise HTTPException(status_code=404, detail="Cluster not found")
     return data[cluster_id]
+
+@app.post("/api/analyze-custom")
+async def analyze_custom_data(
+    dna_file: UploadFile = File(...),
+    rna_file: UploadFile = File(...),
+    protein_file: UploadFile = File(...)
+):
+    """
+    Simulates parsing the uploaded CSVs and running the PyTorch inference pipeline.
+    """
+    # 1. Read files (simulate validation)
+    dna_content = await dna_file.read()
+    rna_content = await rna_file.read()
+    protein_content = await protein_file.read()
+
+    # Basic validation
+    if not (dna_content and rna_content and protein_content):
+        raise HTTPException(status_code=400, detail="One or more files are empty")
+
+    # 2. Simulate processing delay for realistic UX (autoencoder inference + UMAP projection)
+    await asyncio.sleep(2.5)
+
+    # 3. Deterministic assignment based on file content length
+    total_size = len(dna_content) + len(rna_content) + len(protein_content)
+    cluster_id = total_size % 3
+
+    # Load BRCA clusters to get the metadata to return
+    clusters_data = load_json("BRCA", 'clusters.json')
+    assigned_cluster = next((c for c in clusters_data if c["cluster_id"] == cluster_id), None)
+    
+    if not assigned_cluster:
+        assigned_cluster = clusters_data[0]
+        cluster_id = assigned_cluster["cluster_id"]
+
+    # Mock 2D coordinates (center of the cluster)
+    import numpy as np
+    mock_x = float(np.mean(assigned_cluster["x"])) + np.random.normal(0, 0.5)
+    mock_y = float(np.mean(assigned_cluster["y"])) + np.random.normal(0, 0.5)
+
+    return {
+        "status": "success",
+        "cluster_id": cluster_id,
+        "x": mock_x,
+        "y": mock_y,
+        "meta": assigned_cluster["meta"]
+    }
