@@ -86,7 +86,7 @@ def analyze(cohort):
     if cohort == 'LUAD':
         meta = {
             0: {
-                "name": "Cluster 1 — Immune Active",
+                "name": "Cluster 1 - Immune Active",
                 "colorClass": "border-orange-500",
                 "titleColor": "text-orange-400",
                 "means": "High immune infiltration, suggesting the tumor is 'hot' and potentially responsive to immunotherapies.",
@@ -95,7 +95,7 @@ def analyze(cohort):
                 "markerColor": "#f97316"
             },
             1: {
-                "name": "Cluster 2 — KRAS/EGFR Driven",
+                "name": "Cluster 2 - KRAS/EGFR Driven",
                 "colorClass": "border-red-500",
                 "titleColor": "text-red-400",
                 "means": "Tumors driven by specific targetable mutations like KRAS or EGFR.",
@@ -104,7 +104,7 @@ def analyze(cohort):
                 "markerColor": "#ef4444"
             },
             2: {
-                "name": "Cluster 3 — Proliferative",
+                "name": "Cluster 3 - Proliferative",
                 "colorClass": "border-slate-500",
                 "titleColor": "text-slate-400",
                 "means": "Fast growing tumors with dysregulated cell cycles.",
@@ -116,7 +116,7 @@ def analyze(cohort):
     else:
         meta = {
             0: {
-                "name": "Cluster A — Good Prognosis",
+                "name": "Cluster A - Good Prognosis",
                 "colorClass": "border-blue-500",
                 "titleColor": "text-blue-400",
                 "means": "Patients in this group show a molecular pattern historically linked with better treatment response and outcomes.",
@@ -125,7 +125,7 @@ def analyze(cohort):
                 "markerColor": "#3b82f6"
             },
             1: {
-                "name": "Cluster B — DNA Repair Deficit",
+                "name": "Cluster B - DNA Repair Deficit",
                 "colorClass": "border-purple-500",
                 "titleColor": "text-purple-400",
                 "means": "These patients' tumors have a reduced ability to repair their own DNA damage — a specific, targetable weakness.",
@@ -134,7 +134,7 @@ def analyze(cohort):
                 "markerColor": "#a855f7"
             },
             2: {
-                "name": "Cluster C — Aggressive",
+                "name": "Cluster C - Aggressive",
                 "colorClass": "border-teal-500",
                 "titleColor": "text-indigo-400",
                 "means": "The largest group in this dataset, with a molecular signature associated with faster disease progression.",
@@ -160,11 +160,11 @@ def analyze(cohort):
         })
         
     os.makedirs(f'results/{cohort}', exist_ok=True)
-    with open(f'results/{cohort}/metrics.json', 'w') as f:
-        json.dump(metrics, f)
+    with open(f'results/{cohort}/metrics.json', 'w', encoding='utf-8') as f:
+        json.dump(metrics, f, indent=2)
         
-    with open(f'results/{cohort}/clusters.json', 'w') as f:
-        json.dump(clusters_output, f)
+    with open(f'results/{cohort}/clusters.json', 'w', encoding='utf-8') as f:
+        json.dump(clusters_output, f, indent=2)
         
     # Save patient clusters mapping for other scripts
     pd.DataFrame({'PATIENT_ID': samples, 'CLUSTER': labels}).to_csv(f'results/{cohort}/patient_clusters.csv', index=False)

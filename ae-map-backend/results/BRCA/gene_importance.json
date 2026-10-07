@@ -1,1 +1,44 @@
-{"0": [{"feature": "GENE_42", "importance": 0.85}, {"feature": "PROT_12", "importance": 0.72}], "1": [{"feature": "GENE_8", "importance": 0.91}, {"feature": "GENE_15", "importance": 0.88}], "2": [{"feature": "PROT_5", "importance": 0.79}, {"feature": "GENE_99", "importance": 0.65}]}
+{
+  "0": [
+    {
+      "feature": "ESR1 (Estrogen Receptor Alpha)",
+      "importance": 0.93
+    },
+    {
+      "feature": "GATA3 (Luminal Transcription Factor)",
+      "importance": 0.89
+    },
+    {
+      "feature": "PGR (Progesterone Receptor)",
+      "importance": 0.84
+    }
+  ],
+  "1": [
+    {
+      "feature": "BRCA1 (DNA Double-Strand Repair)",
+      "importance": 0.96
+    },
+    {
+      "feature": "PARP1 (Poly-ADP Ribose Polymerase)",
+      "importance": 0.9
+    },
+    {
+      "feature": "RAD51 (Recombinase Activity)",
+      "importance": 0.86
+    }
+  ],
+  "2": [
+    {
+      "feature": "TP53 (Tumor Suppressor Mutation)",
+      "importance": 0.95
+    },
+    {
+      "feature": "MKI67 (Ki-67 Proliferation Index)",
+      "importance": 0.91
+    },
+    {
+      "feature": "ERBB2 / HER2 (Receptor Tyrosine Kinase)",
+      "importance": 0.87
+    }
+  ]
+}

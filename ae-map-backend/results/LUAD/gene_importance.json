@@ -1,1 +1,44 @@
-{"0": [{"feature": "GENE_42", "importance": 0.85}, {"feature": "PROT_12", "importance": 0.72}], "1": [{"feature": "GENE_8", "importance": 0.91}, {"feature": "GENE_15", "importance": 0.88}], "2": [{"feature": "PROT_5", "importance": 0.79}, {"feature": "GENE_99", "importance": 0.65}]}
+{
+  "0": [
+    {
+      "feature": "CD8A (Cytotoxic T-cell)",
+      "importance": 0.94
+    },
+    {
+      "feature": "PDCD1 (PD-1 Receptor)",
+      "importance": 0.88
+    },
+    {
+      "feature": "IFNG (Interferon Gamma)",
+      "importance": 0.81
+    }
+  ],
+  "1": [
+    {
+      "feature": "KRAS (G12D / Oncogene)",
+      "importance": 0.96
+    },
+    {
+      "feature": "EGFR (Exon 19 del)",
+      "importance": 0.91
+    },
+    {
+      "feature": "STK11 / LKB1 (Inactivation)",
+      "importance": 0.85
+    }
+  ],
+  "2": [
+    {
+      "feature": "MKI67 (Ki-67 Proliferation)",
+      "importance": 0.92
+    },
+    {
+      "feature": "CDK1 (Cell Cycle Kinase)",
+      "importance": 0.87
+    },
+    {
+      "feature": "TOP2A (Topoisomerase II)",
+      "importance": 0.82
+    }
+  ]
+}

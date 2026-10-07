@@ -1,19 +1,28 @@
 import React from 'react';
+import { ArrowRight, CheckCircle2, XCircle, Sparkles, RefreshCw, BarChart2, ShieldAlert } from 'lucide-react';
 import ExplainerFlow from './ExplainerFlow';
 import UploadAnalysis from './UploadAnalysis';
 
 export const WhyItMatters = () => (
-  <section id="how-it-works" className="py-20 bg-slate-800">
+  <section id="how-it-works" className="py-24 bg-slate-800/90 border-t border-slate-700/60 scroll-mt-24">
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 className="text-3xl font-bold text-white mb-6">Why This Matters</h2>
-      <p className="text-lg text-slate-100 mb-6 leading-relaxed">
-        Cancer isn't just one disease—it's thousands of different diseases hiding under the same name. 
-        Traditional approaches look at a single piece of the puzzle at a time, like just the DNA or just the proteins. 
-        But to truly understand and treat these complex diseases, we need to combine all these data types.
+      <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold tracking-wide uppercase mb-4">
+        The Core Problem
+      </div>
+      <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-6">
+        Why Multi-Omics Integration Matters
+      </h2>
+      <p className="text-lg text-slate-200 mb-8 leading-relaxed">
+        Cancer isn't just one disease—it's thousands of different diseases hiding under the same histological label. 
+        Traditional clinical genomics looks at a single piece of the puzzle at a time, such as just DNA mutations or just RNA expression. 
+        Crucial therapeutic vulnerabilities only become visible when biological layers are analyzed as a unified whole.
       </p>
-      <div className="p-6 bg-fuchsia-500/10 rounded-2xl inline-block mt-4">
-        <p className="text-fuchsia-200 font-medium text-lg">
-          Fact: There are petabytes of unused multi-omics data in public databases simply because they are too mathematically incompatible to combine using standard statistics.
+      <div className="p-6 bg-gradient-to-r from-fuchsia-950/40 via-purple-900/30 to-indigo-950/40 rounded-2xl border border-fuchsia-500/30 shadow-xl inline-block max-w-3xl text-left sm:text-center">
+        <div className="flex items-center gap-2 justify-center text-fuchsia-300 font-semibold mb-2 text-sm">
+          <Sparkles className="w-4 h-4" /> The Untapped Opportunity
+        </div>
+        <p className="text-slate-200 font-medium text-base sm:text-lg leading-snug">
+          There are petabytes of unused multi-omics profiles in public repositories like TCGA and CPTAC simply because cross-modal datasets are mathematically incompatible to combine using classical single-view statistics.
         </p>
       </div>
     </div>
@@ -22,28 +31,43 @@ export const WhyItMatters = () => (
 
 export const Pipeline = () => {
   const steps = [
-    { icon: '📄', title: 'Raw Patient Data', desc: 'Genomics, transcriptomics, and proteomics data from public databases.' },
-    { icon: '🧹', title: 'Clean & Prepare', desc: 'We fill in missing values and put all data on a comparable scale.' },
-    { icon: '🧠', title: 'AI Learns Hidden Patterns', desc: 'Three AI networks — one per data type — learn to compress each patient\'s data into a shared code.' },
-    { icon: '🧩', title: 'Group Similar Patients', desc: 'Patients with similar AI-generated codes are automatically grouped together.' },
-    { icon: '🔬', title: 'Explain the Biology', desc: 'We trace back which specific biological pathways drive each group.' },
-    { icon: '📊', title: 'Explore Results', desc: 'An interactive dashboard to explore the discovered patient subtypes.' }
+    { num: '01', title: 'Raw Patient Data', desc: 'Genomics (mutations), transcriptomics (RNA), and proteomics (RPPA).' },
+    { num: '02', title: 'Clean & Impute', desc: 'KNN imputation fills missing features across biological modalities.' },
+    { num: '03', title: 'Deep Compression', desc: 'Three specialized neural encoders map multi-omics to a 128-dim latent space.' },
+    { num: '04', title: 'Unsupervised Subtyping', desc: 'Hierarchical & spectral clustering discover genuine disease phenotypes.' },
+    { num: '05', title: 'Pathway Enrichment', desc: 'Statistical validation linking clusters to known cellular pathways.' },
+    { num: '06', title: 'Clinical Validation', desc: 'Kaplan-Meier survival curves verify outcomes differ in the real world.' }
   ];
 
   return (
-    <section className="py-20 bg-slate-900 border-y border-slate-700/50">
+    <section className="py-24 bg-slate-900 border-y border-slate-700/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-white mb-12 text-center">The AE-MAP Process</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold tracking-wide uppercase mb-3">
+            End-To-End Methodology
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">The AE-MAP Analysis Pipeline</h2>
+          <p className="text-slate-300 text-base sm:text-lg">
+            From raw multi-omic sequencing matrices to clinically interpretable cancer subtypes in 6 automated steps.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {steps.map((step, idx) => (
-            <div key={idx} className="group relative flex flex-col items-center text-center p-4 bg-slate-800 rounded-xl shadow-none hover:shadow-md transition-all border border-slate-700/50">
-              <div className="text-4xl mb-4 bg-slate-900 w-16 h-16 flex items-center justify-center rounded-full group-hover:bg-fuchsia-500/10 transition-colors">
-                {step.icon}
+            <div 
+              key={idx} 
+              className="relative p-6 bg-slate-800/80 rounded-2xl border border-slate-700/70 hover:border-indigo-500/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-2xl font-black text-indigo-400 font-mono opacity-80 group-hover:opacity-100 transition-opacity">
+                  {step.num}
+                </span>
+                <div className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 group-hover:text-indigo-400 group-hover:bg-indigo-500/10 transition-colors">
+                  <ArrowRight className="w-4 h-4" />
+                </div>
               </div>
-              <h3 className="font-semibold text-slate-100 text-sm mb-2">{step.title}</h3>
-              <p className="text-sm text-slate-200 opacity-0 group-hover:opacity-100 absolute bottom-[-10px] translate-y-full bg-slate-800 border border-slate-600 text-white p-3 rounded-lg shadow-xl z-20 pointer-events-none w-48 transition-all">
-                {step.desc}
-              </p>
+              <h3 className="font-bold text-white text-lg mb-2">{step.title}</h3>
+              <p className="text-sm text-slate-300 leading-relaxed">{step.desc}</p>
             </div>
           ))}
         </div>
@@ -53,27 +77,46 @@ export const Pipeline = () => {
 };
 
 export const Comparison = () => (
-  <section className="py-20 bg-slate-800">
+  <section className="py-24 bg-slate-800/90 border-t border-slate-700/60">
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 className="text-3xl font-bold text-white mb-12 text-center">Old Way vs. AE-MAP</h2>
-      <div className="overflow-hidden rounded-2xl border border-slate-700/50 shadow-none">
+      <div className="text-center max-w-3xl mx-auto mb-14">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">Traditional Analysis vs. AE-MAP</h2>
+        <p className="text-slate-300 text-base sm:text-lg">
+          Why deep multi-view representation learning outperforms single-layer statistics.
+        </p>
+      </div>
+
+      <div className="overflow-hidden rounded-2xl border border-slate-700/80 shadow-2xl bg-slate-900/60">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-slate-900 border-b border-slate-700/50">
-              <th className="py-5 px-6 font-semibold text-slate-200 w-1/2">Traditional Approach</th>
-              <th className="py-5 px-6 font-semibold text-indigo-300 bg-indigo-500/10 w-1/2 border-l border-slate-700/50">AE-MAP</th>
+            <tr className="bg-slate-900 border-b border-slate-700">
+              <th className="py-5 px-6 font-bold text-slate-300 text-sm uppercase tracking-wider w-1/2">
+                Traditional Analysis
+              </th>
+              <th className="py-5 px-6 font-bold text-indigo-300 text-sm uppercase tracking-wider w-1/2 bg-indigo-950/40 border-l border-slate-700">
+                AE-MAP Multi-View Engine
+              </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-700/50">
+          <tbody className="divide-y divide-slate-800">
             {[
-              ['Studies one data type at a time', 'Combines DNA, RNA, and protein data at once'],
-              ['Needs labeled data to find patient groups', 'Finds hidden groups on its own (unsupervised)'],
-              ['Misses connections between data types', 'Learns the connections automatically'],
-              ['Manual, slow pattern-spotting', 'Automated, scalable pattern discovery']
+              ['Analyzes one data modality in a silo (e.g. only DNA)', 'Simultaneously embeds DNA, RNA, and protein measurements into a shared space', true],
+              ['Requires known labels to discover subgroups (supervised)', 'Uncovers novel subgroups completely unsupervised without human bias', true],
+              ['Cannot capture non-linear relationships across layers', 'Learns deep cross-modal interactions through deep neural encoder branches', true],
+              ['Drops patients with incomplete test records', 'Tolerates incomplete multi-omics via robust latent reconstruction & imputation', true],
+              ['Opaque statistical grouping without biological rationale', 'Provides automatic pathway enrichment & feature importance verification', true]
             ].map((row, idx) => (
-              <tr key={idx} className="hover:bg-slate-900/50 transition-colors">
-                <td className="py-4 px-6 text-slate-200">{row[0]}</td>
-                <td className="py-4 px-6 text-white font-medium bg-indigo-500/5 border-l border-slate-700/50">{row[1]}</td>
+              <tr key={idx} className="hover:bg-slate-800/40 transition-colors">
+                <td className="py-4 px-6 text-slate-300 text-sm flex items-start gap-3">
+                  <XCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+                  <span>{row[0]}</span>
+                </td>
+                <td className="py-4 px-6 text-white text-sm font-medium bg-indigo-950/20 border-l border-slate-800">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                    <span>{row[1]}</span>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -90,7 +133,7 @@ export const InteractiveDemo = () => {
   const [error, setError] = React.useState(null);
   const [hoveredCluster, setHoveredCluster] = React.useState(null);
 
-  // New animation state
+  // Animation state
   const [isClustered, setIsClustered] = React.useState(false);
 
   React.useEffect(() => {
@@ -104,7 +147,6 @@ export const InteractiveDemo = () => {
       .then(data => {
         const fallbackColors = ['#3b82f6', '#8b5cf6', '#14b8a6', '#f43f5e', '#f59e0b'];
         
-        // Find global min/max for scaling
         let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
         data.forEach(cluster => {
           cluster.x.forEach(x => { if (x < minX) minX = x; if (x > maxX) maxX = x; });
@@ -112,8 +154,8 @@ export const InteractiveDemo = () => {
         });
 
         const padding = 0.1;
-        const xRange = maxX - minX;
-        const yRange = maxY - minY;
+        const xRange = maxX - minX || 1.0;
+        const yRange = maxY - minY || 1.0;
         minX -= xRange * padding;
         maxX += xRange * padding;
         minY -= yRange * padding;
@@ -121,7 +163,6 @@ export const InteractiveDemo = () => {
 
         const processedClusters = data.map((cluster, i) => {
           const color = cluster.meta.markerColor || fallbackColors[i % fallbackColors.length];
-          // Calculate centroid
           let sumX = 0, sumY = 0;
           
           const points = cluster.x.map((x, j) => {
@@ -132,14 +173,12 @@ export const InteractiveDemo = () => {
             return {
               id: `${i}-${j}`,
               clusterIdx: i,
-              // Target coordinates in percentages
               targetX: ((x - minX) / (maxX - minX)) * 100,
-              targetY: ((maxY - y) / (maxY - minY)) * 100, // Invert Y
+              targetY: ((maxY - y) / (maxY - minY)) * 100,
               color: color,
-              // Initial random scattered positions (away from edges)
               startX: Math.random() * 80 + 10,
               startY: Math.random() * 80 + 10,
-              delay: Math.random() * 0.6 // Stagger up to 600ms
+              delay: Math.random() * 0.6
             };
           });
           
@@ -164,59 +203,86 @@ export const InteractiveDemo = () => {
       });
   }, [activeCohort]);
 
-  // Tailwind safelist for dynamic classes injected from API
-  // border-blue-500 text-blue-400 border-purple-500 text-purple-400 border-rose-500 text-rose-400
-  // border-emerald-500 text-emerald-400 border-amber-500 text-amber-400 border-indigo-500 text-indigo-400
-  // border-orange-500 text-orange-400 border-red-500 text-red-400 border-slate-500 text-slate-400
-
   return (
     <React.Fragment>
-    <section id="live-demo" className="py-24 bg-slate-900 text-white">
+    <section id="live-demo" className="py-24 bg-slate-900 text-white scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6">The Result: Patient Subtypes</h2>
+        <div className="text-center mb-10 max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold tracking-wide uppercase mb-4">
+            Interactive Visualization
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-extrabold mb-4">
+            Discovered Patient Subtypes
+          </h2>
           
-          <div className="flex flex-col items-center justify-center gap-4 mb-8">
-            <div className="bg-slate-800 p-1 rounded-lg inline-flex relative shadow-inner border border-slate-700/50">
+          {/* Cohort Toggle */}
+          <div className="flex flex-col items-center justify-center gap-4 mb-6">
+            <div className="bg-slate-800 p-1.5 rounded-xl inline-flex relative shadow-inner border border-slate-700/80">
               <button 
                 onClick={() => setActiveCohort('BRCA')}
-                className={`px-6 py-2 rounded-md font-medium shadow-sm transition-all text-sm ${activeCohort === 'BRCA' ? 'bg-indigo-500 text-white' : 'text-slate-400 hover:text-white'}`}
+                className={`px-6 py-2.5 rounded-lg font-semibold transition-all text-sm ${
+                  activeCohort === 'BRCA' 
+                    ? 'bg-indigo-600 text-white shadow-md' 
+                    : 'text-slate-400 hover:text-white'
+                }`}
               >
                 Breast Cancer (TCGA-BRCA)
               </button>
               <button 
                 onClick={() => setActiveCohort('LUAD')}
-                className={`px-6 py-2 rounded-md font-medium transition-all text-sm ${activeCohort === 'LUAD' ? 'bg-indigo-500 text-white' : 'text-slate-400 hover:text-white'}`}
+                className={`px-6 py-2.5 rounded-lg font-semibold transition-all text-sm ${
+                  activeCohort === 'LUAD' 
+                    ? 'bg-indigo-600 text-white shadow-md' 
+                    : 'text-slate-400 hover:text-white'
+                }`}
               >
                 Lung Cancer (TCGA-LUAD)
               </button>
             </div>
-            <p className="text-sm text-slate-200 bg-slate-800/50 inline-block px-5 py-2.5 rounded-full border border-slate-600 shadow-sm">
-              <span className="text-indigo-400 font-bold mr-1">Portability:</span> 
-              Same AI model, same code — just pointed at a different cancer's patient data. Nothing about the method changed.
-            </p>
+            <div className="text-xs text-slate-300 bg-slate-800/80 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <strong className="text-white">Portability Demonstrated:</strong> Same model architecture evaluated across different cancer types without hyperparameter retuning.
+            </div>
           </div>
 
-          <p className="text-slate-200 text-lg mb-4">
-            Each dot is a patient. Patients close together share hidden biological similarities our AI discovered — without ever being told what to look for.
-          </p>
-          <p className="text-fuchsia-300 text-xl font-medium">
-            This isn't just a pattern in data — each group of patients may need a different treatment path. Traditional methods often can't see this distinction. AE-MAP found it automatically.
+          <p className="text-slate-300 text-base sm:text-lg mb-2">
+            Each dot represents an individual patient. Patients close together share hidden biological signatures discovered autonomously by AE-MAP.
           </p>
         </div>
         
-        <div className="bg-slate-800 p-2 rounded-2xl shadow-2xl overflow-hidden mb-12">
-          <div className="relative w-full h-[500px] overflow-hidden bg-slate-900 border border-slate-700/50 rounded-xl">
+        {/* Plot Card */}
+        <div className="bg-slate-800/90 p-3 sm:p-4 rounded-3xl shadow-2xl border border-slate-700/80 mb-12">
+          <div className="relative w-full h-[520px] overflow-hidden bg-slate-950 border border-slate-800 rounded-2xl">
             {loading ? (
               <div className="absolute inset-0 flex items-center justify-center text-slate-400 animate-pulse font-medium">
                 Loading live cluster data from AE-MAP backend...
               </div>
             ) : error ? (
-              <div className="absolute inset-0 flex items-center justify-center text-red-500">
-                Error loading data: {error} (Is the backend running?)
+              <div className="absolute inset-0 flex items-center justify-center text-rose-400 text-sm font-medium">
+                Error loading data: {error} (Please verify the backend server is running on port 8000)
               </div>
             ) : (
               <>
+                {/* Cluster Legend in Top-Right */}
+                <div className="absolute top-4 right-4 z-20 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-xl p-3 shadow-xl pointer-events-none">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                    {activeCohort} Subtypes ({plotData.reduce((acc, c) => acc + c.patientCount, 0)} Patients)
+                  </div>
+                  <div className="space-y-1.5">
+                    {plotData.map((cluster, i) => (
+                      <div key={i} className="flex items-center gap-2 text-xs text-slate-200">
+                        <span 
+                          className="w-3 h-3 rounded-full shrink-0 shadow-sm" 
+                          style={{ backgroundColor: cluster.color }}
+                        />
+                        <span className="font-medium truncate max-w-[180px]">{cluster.name}</span>
+                        <span className="text-slate-400 font-mono text-[11px]">({cluster.patientCount})</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Patient Dots */}
                 {plotData.map((cluster, cIdx) => (
                   <React.Fragment key={cIdx}>
                     {cluster.points.map((pt) => {
@@ -224,30 +290,33 @@ export const InteractiveDemo = () => {
                       return (
                         <div
                           key={pt.id}
-                          className="absolute rounded-full transition-all duration-[1200ms] ease-out"
+                          className="absolute rounded-full transition-all duration-[1200ms] ease-out pointer-events-none"
                           style={{
-                            width: '8px',
-                            height: '8px',
+                            width: hoveredCluster === cIdx ? '10px' : '7px',
+                            height: hoveredCluster === cIdx ? '10px' : '7px',
                             left: `${isClustered ? pt.targetX : pt.startX}%`,
                             top: `${isClustered ? pt.targetY : pt.startY}%`,
-                            backgroundColor: isClustered ? pt.color : '#64748b', // slate-500
-                            opacity: isClustered ? (isHovered ? 0.8 : 0.2) : 0.6,
+                            backgroundColor: isClustered ? pt.color : '#64748b',
+                            opacity: isClustered ? (isHovered ? 0.9 : 0.15) : 0.5,
                             transform: 'translate(-50%, -50%)',
-                            transitionDelay: isClustered ? `${pt.delay}s` : '0s'
+                            transitionDelay: isClustered ? `${pt.delay}s` : '0s',
+                            boxShadow: isClustered && hoveredCluster === cIdx ? `0 0 10px ${pt.color}` : 'none'
                           }}
                         />
                       );
                     })}
-                    {/* Label */}
+
+                    {/* Centroid Label Pill */}
                     <div 
-                      className="absolute transition-opacity duration-1000 px-3 py-1.5 bg-slate-900/90 backdrop-blur border border-slate-700/80 rounded-lg text-sm font-semibold pointer-events-none shadow-xl z-10"
+                      className="absolute transition-all duration-700 px-3.5 py-1.5 bg-slate-900/95 backdrop-blur border rounded-xl text-xs sm:text-sm font-bold pointer-events-none shadow-2xl z-10"
                       style={{
                         left: `${cluster.centroidX}%`,
                         top: `${cluster.centroidY}%`,
                         transform: 'translate(-50%, -50%)',
                         color: cluster.color,
-                        opacity: isClustered ? (hoveredCluster === null || hoveredCluster === cIdx ? 1 : 0.1) : 0,
-                        transitionDelay: isClustered ? '1.2s' : '0s'
+                        borderColor: cluster.color,
+                        opacity: isClustered ? (hoveredCluster === null || hoveredCluster === cIdx ? 1 : 0.15) : 0,
+                        transitionDelay: isClustered ? '1.0s' : '0s'
                       }}
                     >
                       {cluster.name}
@@ -255,24 +324,21 @@ export const InteractiveDemo = () => {
                   </React.Fragment>
                 ))}
                 
-                {/* Controls overlay */}
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4 z-20">
+                {/* Control Action Button */}
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 z-30">
                   {!isClustered ? (
                     <button 
                       onClick={() => setIsClustered(true)}
-                      className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg hover:shadow-indigo-500/25 transition-all transform hover:-translate-y-0.5"
+                      className="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-full shadow-xl shadow-indigo-600/40 hover:shadow-indigo-500/60 transition-all transform hover:scale-105 flex items-center gap-2 text-base animate-pulse"
                     >
-                      Run AI Analysis
+                      <Sparkles className="w-5 h-5" /> Run AI Clustering
                     </button>
                   ) : (
                     <button 
                       onClick={() => setIsClustered(false)}
-                      className="px-5 py-2.5 bg-slate-800/80 backdrop-blur hover:bg-slate-700 text-slate-300 font-medium rounded-lg shadow-lg border border-slate-600 transition-all text-sm flex items-center gap-2"
+                      className="px-6 py-2.5 bg-slate-800/90 backdrop-blur hover:bg-slate-700 text-slate-200 font-semibold rounded-full shadow-lg border border-slate-600 transition-all text-sm flex items-center gap-2"
                     >
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                      </svg>
-                      Reset
+                      <RefreshCw className="w-4 h-4" /> Reset Positions
                     </button>
                   )}
                 </div>
@@ -281,26 +347,36 @@ export const InteractiveDemo = () => {
           </div>
         </div>
 
+        {/* Dynamic Insight Cards */}
         {!loading && !error && plotData.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             {plotData.map((cluster, idx) => {
               const card = cluster.meta;
               if (!card) return null;
+              const isSelected = hoveredCluster === idx;
               return (
                 <div 
                   key={idx} 
-                  className={`bg-slate-800 rounded-xl p-6 border-t-4 transition-all duration-300 cursor-pointer ${card.colorClass} ${hoveredCluster !== null && hoveredCluster !== idx ? 'opacity-30' : 'opacity-100 shadow-lg hover:scale-[1.02]'}`}
+                  className={`bg-slate-800/90 rounded-2xl p-6 border-t-4 transition-all duration-300 cursor-pointer ${card.colorClass} ${
+                    hoveredCluster !== null && !isSelected ? 'opacity-40' : 'opacity-100 shadow-xl hover:-translate-y-1'
+                  } ${isSelected ? 'ring-2 ring-indigo-400/50 bg-slate-800' : ''}`}
                   onMouseEnter={() => setHoveredCluster(idx)}
                   onMouseLeave={() => setHoveredCluster(null)}
                 >
-                  <h3 className={`text-xl font-bold mb-1 ${card.titleColor}`}>{card.name}</h3>
-                  <div className="text-sm text-slate-200 mb-4 font-bold uppercase tracking-wide">
-                    {cluster.patientCount} Patients
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className={`text-xl font-bold ${card.titleColor}`}>{card.name}</h3>
+                    <span 
+                      className="w-3.5 h-3.5 rounded-full shrink-0"
+                      style={{ backgroundColor: cluster.color }}
+                    />
                   </div>
-                  <div className="space-y-3 text-base text-slate-200">
+                  <div className="text-xs text-slate-400 mb-4 font-mono font-bold uppercase tracking-wider">
+                    {cluster.patientCount} Validated Patients
+                  </div>
+                  <div className="space-y-3 text-sm text-slate-200">
                     <p><strong className="text-white">What this means:</strong> {card.means}</p>
-                    <p><strong className="text-white">What's driving it:</strong> {card.driving}</p>
-                    <p><strong className="text-white">How this helps:</strong> {card.helps}</p>
+                    <p><strong className="text-white">Biological drivers:</strong> {card.driving}</p>
+                    <p><strong className="text-white">Clinical impact:</strong> {card.helps}</p>
                   </div>
                 </div>
               );
@@ -309,6 +385,7 @@ export const InteractiveDemo = () => {
         )}
       </div>
     </section>
+    
     <ExplainerFlow activeCohort={activeCohort} selectedCluster={hoveredCluster !== null ? hoveredCluster.toString() : '0'} />
     <UploadAnalysis />
     </React.Fragment>

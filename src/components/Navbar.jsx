@@ -8,6 +8,7 @@ const Navbar = () => {
     { name: 'Home', href: '#home' },
     { name: 'How It Works', href: '#how-it-works' },
     { name: 'Live Demo', href: '#live-demo' },
+    { name: 'Upload & Test', href: '#custom-analysis' },
     { name: 'Use Cases', href: '#use-cases' },
     { name: 'About', href: '#about' },
   ];
@@ -53,7 +54,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-indigo-300 hover:bg-slate-900"
+                className="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:text-indigo-300 hover:bg-slate-900"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}

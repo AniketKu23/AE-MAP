@@ -1,0 +1,92 @@
+[
+  {
+    "id": "patient_01",
+    "name": "Patient 01 (Immune-Active High CD8)",
+    "desc": "High cytotoxic T-cell markers (CD8A, IFNG); strong candidate for anti-PD1 therapy.",
+    "subtype": 0,
+    "dnaPath": "/samples/LUAD/patient_01/dna.csv",
+    "rnaPath": "/samples/LUAD/patient_01/rna.csv",
+    "proteinPath": "/samples/LUAD/patient_01/protein.csv"
+  },
+  {
+    "id": "patient_02",
+    "name": "Patient 02 (Immune-Active PD-L1+)",
+    "desc": "High PD-L1 (CD274) and STAT1 activation with elevated immune score.",
+    "subtype": 0,
+    "dnaPath": "/samples/LUAD/patient_02/dna.csv",
+    "rnaPath": "/samples/LUAD/patient_02/rna.csv",
+    "proteinPath": "/samples/LUAD/patient_02/protein.csv"
+  },
+  {
+    "id": "patient_03",
+    "name": "Patient 03 (Immune Infiltrated)",
+    "desc": "Robust chemokine (CXCL9) and granzyme (GZMB) expression profile.",
+    "subtype": 0,
+    "dnaPath": "/samples/LUAD/patient_03/dna.csv",
+    "rnaPath": "/samples/LUAD/patient_03/rna.csv",
+    "proteinPath": "/samples/LUAD/patient_03/protein.csv"
+  },
+  {
+    "id": "patient_04",
+    "name": "Patient 04 (KRAS G12C Mutant)",
+    "desc": "Oncogenic KRAS missense mutation with elevated MAPK phosphorylation.",
+    "subtype": 1,
+    "dnaPath": "/samples/LUAD/patient_04/dna.csv",
+    "rnaPath": "/samples/LUAD/patient_04/rna.csv",
+    "proteinPath": "/samples/LUAD/patient_04/protein.csv"
+  },
+  {
+    "id": "patient_05",
+    "name": "Patient 05 (EGFR Exon 19 del)",
+    "desc": "Activating EGFR alteration; sensitive to tyrosine kinase inhibitors.",
+    "subtype": 1,
+    "dnaPath": "/samples/LUAD/patient_05/dna.csv",
+    "rnaPath": "/samples/LUAD/patient_05/rna.csv",
+    "proteinPath": "/samples/LUAD/patient_05/protein.csv"
+  },
+  {
+    "id": "patient_06",
+    "name": "Patient 06 (KRAS + STK11 Co-mut)",
+    "desc": "Co-occurring KRAS and STK11 mutations with PI3K/Akt pathway activation.",
+    "subtype": 1,
+    "dnaPath": "/samples/LUAD/patient_06/dna.csv",
+    "rnaPath": "/samples/LUAD/patient_06/rna.csv",
+    "proteinPath": "/samples/LUAD/patient_06/protein.csv"
+  },
+  {
+    "id": "patient_07",
+    "name": "Patient 07 (EGFR / MET Pathway)",
+    "desc": "Elevated EGFR and MET protein abundance driving oncogenic growth.",
+    "subtype": 1,
+    "dnaPath": "/samples/LUAD/patient_07/dna.csv",
+    "rnaPath": "/samples/LUAD/patient_07/rna.csv",
+    "proteinPath": "/samples/LUAD/patient_07/protein.csv"
+  },
+  {
+    "id": "patient_08",
+    "name": "Patient 08 (Proliferative High Ki-67)",
+    "desc": "Extreme MKI67 and CDK1 expression with rapid cell division rate.",
+    "subtype": 2,
+    "dnaPath": "/samples/LUAD/patient_08/dna.csv",
+    "rnaPath": "/samples/LUAD/patient_08/rna.csv",
+    "proteinPath": "/samples/LUAD/patient_08/protein.csv"
+  },
+  {
+    "id": "patient_09",
+    "name": "Patient 09 (TP53-Mutant / Aneuploid)",
+    "desc": "Loss-of-function TP53 alteration and high Cyclin B1 / Topoisomerase II levels.",
+    "subtype": 2,
+    "dnaPath": "/samples/LUAD/patient_09/dna.csv",
+    "rnaPath": "/samples/LUAD/patient_09/rna.csv",
+    "proteinPath": "/samples/LUAD/patient_09/protein.csv"
+  },
+  {
+    "id": "patient_10",
+    "name": "Patient 10 (Aggressive Cell Cycle)",
+    "desc": "Hyperactive FOXM1 and Aurora Kinase signaling requiring intensive chemotherapy.",
+    "subtype": 2,
+    "dnaPath": "/samples/LUAD/patient_10/dna.csv",
+    "rnaPath": "/samples/LUAD/patient_10/rna.csv",
+    "proteinPath": "/samples/LUAD/patient_10/protein.csv"
+  }
+]

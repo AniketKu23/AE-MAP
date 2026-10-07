@@ -1,0 +1,92 @@
+[
+  {
+    "id": "patient_01",
+    "name": "Patient 01 (Luminal A - High ER/PR)",
+    "desc": "Elevated ESR1, PGR, and GATA3 expression; low proliferative activity; excellent hormone response.",
+    "subtype": 0,
+    "dnaPath": "/samples/BRCA/patient_01/dna.csv",
+    "rnaPath": "/samples/BRCA/patient_01/rna.csv",
+    "proteinPath": "/samples/BRCA/patient_01/protein.csv"
+  },
+  {
+    "id": "patient_02",
+    "name": "Patient 02 (Luminal A - FOXA1+)",
+    "desc": "High FOXA1 transcriptional regulator with quiescent cell cycle and favorable long-term prognosis.",
+    "subtype": 0,
+    "dnaPath": "/samples/BRCA/patient_02/dna.csv",
+    "rnaPath": "/samples/BRCA/patient_02/rna.csv",
+    "proteinPath": "/samples/BRCA/patient_02/protein.csv"
+  },
+  {
+    "id": "patient_03",
+    "name": "Patient 03 (Luminal B - PIK3CA Mutant)",
+    "desc": "PIK3CA oncogenic mutation with sustained estrogen receptor signaling.",
+    "subtype": 0,
+    "dnaPath": "/samples/BRCA/patient_03/dna.csv",
+    "rnaPath": "/samples/BRCA/patient_03/rna.csv",
+    "proteinPath": "/samples/BRCA/patient_03/protein.csv"
+  },
+  {
+    "id": "patient_04",
+    "name": "Patient 04 (BRCA1 Inactivation / HRD)",
+    "desc": "Loss of functional BRCA1, high PARP1 abundance; sensitive to PARP inhibitors (e.g. Olaparib).",
+    "subtype": 1,
+    "dnaPath": "/samples/BRCA/patient_04/dna.csv",
+    "rnaPath": "/samples/BRCA/patient_04/rna.csv",
+    "proteinPath": "/samples/BRCA/patient_04/protein.csv"
+  },
+  {
+    "id": "patient_05",
+    "name": "Patient 05 (BRCA2-Mutant DNA Repair Deficit)",
+    "desc": "Biallelic BRCA2 loss with high genomic instability and spiked RAD51 expression.",
+    "subtype": 1,
+    "dnaPath": "/samples/BRCA/patient_05/dna.csv",
+    "rnaPath": "/samples/BRCA/patient_05/rna.csv",
+    "proteinPath": "/samples/BRCA/patient_05/protein.csv"
+  },
+  {
+    "id": "patient_06",
+    "name": "Patient 06 (HRD / Platinum-Sensitive)",
+    "desc": "Defective homologous recombination machinery; exceptional response to platinum chemos.",
+    "subtype": 1,
+    "dnaPath": "/samples/BRCA/patient_06/dna.csv",
+    "rnaPath": "/samples/BRCA/patient_06/rna.csv",
+    "proteinPath": "/samples/BRCA/patient_06/protein.csv"
+  },
+  {
+    "id": "patient_07",
+    "name": "Patient 07 (ATM/CHEK2 Checkpoint Deficit)",
+    "desc": "Impaired double-strand break repair checkpoint signaling and elevated DNA stress response.",
+    "subtype": 1,
+    "dnaPath": "/samples/BRCA/patient_07/dna.csv",
+    "rnaPath": "/samples/BRCA/patient_07/rna.csv",
+    "proteinPath": "/samples/BRCA/patient_07/protein.csv"
+  },
+  {
+    "id": "patient_08",
+    "name": "Patient 08 (Basal-Like / Triple Negative)",
+    "desc": "TP53 mutation, loss of ER/PR/HER2, extreme MKI67 and proliferation kinase levels.",
+    "subtype": 2,
+    "dnaPath": "/samples/BRCA/patient_08/dna.csv",
+    "rnaPath": "/samples/BRCA/patient_08/rna.csv",
+    "proteinPath": "/samples/BRCA/patient_08/protein.csv"
+  },
+  {
+    "id": "patient_09",
+    "name": "Patient 09 (HER2-Enriched Subtype)",
+    "desc": "Amplified ERBB2/HER2 expression and hyperactive receptor tyrosine kinase signaling.",
+    "subtype": 2,
+    "dnaPath": "/samples/BRCA/patient_09/dna.csv",
+    "rnaPath": "/samples/BRCA/patient_09/rna.csv",
+    "proteinPath": "/samples/BRCA/patient_09/protein.csv"
+  },
+  {
+    "id": "patient_10",
+    "name": "Patient 10 (Aggressive Proliferative)",
+    "desc": "Dysregulated cell cycle with high CCNE1, AURKA, and TOP2A; fast progression profile.",
+    "subtype": 2,
+    "dnaPath": "/samples/BRCA/patient_10/dna.csv",
+    "rnaPath": "/samples/BRCA/patient_10/rna.csv",
+    "proteinPath": "/samples/BRCA/patient_10/protein.csv"
+  }
+]
